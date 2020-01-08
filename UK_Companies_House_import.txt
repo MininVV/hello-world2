@@ -42,3 +42,15 @@ PreviousName_1_CompanyName: line.` PreviousName_1.CompanyName`,
 ConfStmtNextDueDate: line.`ConfStmtNextDueDate`,
 ConfStmtLastMadeUpDate: line.` ConfStmtLastMadeUpDate`
  })
+ 
+USING PERIODIC COMMIT 5000 LOAD CSV WITH HEADERS FROM 'file:///ukpostcodes.csv' AS line
+CREATE (:UK_postcode{
+Postcode: line.`postcode`,
+Latitude: line.`latitude`,
+Longitude: line.`longitude`
+})
+
+MATCH(a:Company),(b:UK_postcode)
+WHERE a.RegAddress_PostCode=b.Postcode
+MERGE (a)-[r:REGISTERED_IN_POSTAL_CODE]->(b)
+ON CREATE SET b.number_of_restered_companies=b.number_of_restered_companies+1;
