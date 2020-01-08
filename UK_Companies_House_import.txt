@@ -1,0 +1,44 @@
+CREATE INDEX ON :Company(CompanyNumber);
+CREATE INDEX ON :Company(RegAddress_PostCode);
+CREATE INDEX ON :UK_postcode(Postcode);
+
+USING PERIODIC COMMIT 5000 LOAD CSV WITH HEADERS FROM 'file:///BasicCompanyData-2020-01-01-part1_6.csv' AS line
+CREATE (:Company{
+CompanyName: line.CompanyName,
+CompanyNumber: line.CompanyNumber,
+RegAddress_CareOf: line.`RegAddress.CareOf`,
+RegAddress_POBox: line.`RegAddress.POBox`,
+RegAddress_AddressLine1: line.`RegAddress.AddressLine1`,
+RegAddress_AddressLine2: line.` RegAddress.AddressLine2`,
+RegAddress_PostTown: line.`RegAddress.PostTown`,
+RegAddress_County: line.`RegAddress.County`,
+RegAddress_Country: line.`RegAddress.Country`,
+RegAddress_PostCode: line.`RegAddress.PostCode`,
+CompanyCategory: line.`CompanyCategory`,
+CompanyStatus: line.`CompanyStatus`,
+CountryOfOrigin: line.`CountryOfOrigin`,
+DissolutionDate: line.`DissolutionDate`,
+IncorporationDate: line.`IncorporationDate`,
+Accounts_AccountRefDay: line.`Accounts.AccountRefDay`,
+Accounts_AccountRefMonth: line.`Accounts.AccountRefMonth`,
+Accounts_NextDueDate: line.`Accounts.NextDueDate`,
+Accounts_LastMadeUpDate: line.`Accounts.LastMadeUpDate`,
+Accounts_AccountCategory: line.`Accounts.AccountCategory`,
+Returns_NextDueDate: line.`Returns.NextDueDate`,
+Returns_LastMadeUpDate: line.`Returns.LastMadeUpDate`,
+Mortgages_NumMortCharges: line.`Mortgages.NumMortCharges`,
+Mortgages_NumMortOutstanding: line.`Mortgages.NumMortOutstanding`,
+Mortgages_NumMortPartSatisfied: line.`Mortgages.NumMortPartSatisfied`,
+Mortgages_NumMortSatisfied: line.`Mortgages.NumMortSatisfied`,
+SICCode_SicText_1: line.`SICCode.SicText_1`,
+SICCode_SicText_2: line.`SICCode.SicText_2`,
+SICCode_SicText_3: line.`SICCode.SicText_3`,
+SICCode_SicText_4: line.`SICCode.SicText_4`,
+LimitedPartnerships_NumGenPartners: line.`LimitedPartnerships.NumGenPartners`,
+LimitedPartnerships_NumLimPartners: line.`LimitedPartnerships.NumLimPartners`,
+URI: line.`URI`,
+PreviousName_1_CONDATE: line.`PreviousName_1.CONDATE`,
+PreviousName_1_CompanyName: line.` PreviousName_1.CompanyName`,
+ConfStmtNextDueDate: line.`ConfStmtNextDueDate`,
+ConfStmtLastMadeUpDate: line.` ConfStmtLastMadeUpDate`
+ })
