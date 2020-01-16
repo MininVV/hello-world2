@@ -1,0 +1,3 @@
+cd D:\valery minin\OneDrive - Grant Thornton UK\AMLTA_PlatformDevelopment\Datasets
+
+jq-win64.exe -r ". | select(.data.kind | contains(\"individual\")) | [.company_number, .data.kind, (.data.date_of_birth.year|tostring)+\"-\"+(.data.date_of_birth.month|tostring)+\"-01\",.data.notified_on, .data.address.postal_code, (.data.address.address_line_1+\",\"+.data.address.locality+\",\"+.data.address.region), .data.country_of_residence, .data.nationality, .data.name_elements.forename, .data.name_elements.surname, .data.etag, .data.name, .data.links.statement, .data.natures_of_control[] ] |@csv" "D:\valery minin\OneDrive - Grant Thornton UK\AMLTA_PlatformDevelopment\Datasets\persons-with-significant-control-snapshot-2020-01-15.txt" > newfile_indiv_all.csv
